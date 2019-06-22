@@ -1,0 +1,98 @@
+import kivy
+from kivy.app import App
+from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.uix.button import Button
+from kivy.uix.label import Label
+from kivy.uix.textinput import TextInput
+from kivy.uix.dropdown import DropDown
+from kivy.uix.floatlayout import FloatLayout
+from kivy.uix.boxlayout import BoxLayout
+
+class Menu_Screen(FloatLayout):
+	def __init__(self, **kwargs):
+		super().__init__(**kwargs)
+		
+		self.label_tittle = Label(text = "Puntuador\nScrabble",
+												 color= (1,1,1,1),
+												 font_size = 40,
+												 halign = "center",
+												 font_name= "Neothic.ttf",
+												 size_hint = (0.2,0.1),
+												 pos_hint = {"x":0.4,"y":0.7})
+		self.add_widget(self.label_tittle)
+		
+		self.dropdown_players = DropDown()
+		
+		x = 2
+		for index in range(3):
+			btn = Button(text = f"{x} Jugadores",
+								   size_hint_y=None, 
+						   		height= 44, 
+						   		width= 50)
+			x += 1
+			btn.bind(on_release=lambda btn: self.dropdown_players.select(btn.text))
+			self.dropdown_players.add_widget(btn)
+			
+		self.players_button = Button(text = "Jugadores",
+														   pos_hint = {"x":0.35,"y":0.5},
+														   size_hint = (0.3,0.07))
+		self.players_button.bind(on_release=self.dropdown_players.open)
+		self.dropdown_players.bind(on_select=lambda instance, x: setattr(self.players_button, 'text', x))
+		self.add_widget(self.players_button)
+		
+		self.box_layout = BoxLayout()
+		self.add_widget(self.box_layout)
+		
+	def input_maker_box(self,_):
+		self.text_player_1= TextInput()
+		self.box_layout.add_widget = text_player_1
+		
+				
+class Player1:
+	def __init__(self):
+		self.name = name
+		self.current_score = current_score
+		self.final_score = final_score
+		self.lis_score = lis_score
+
+class Player2:
+	def __init__(self):
+		self.name = name
+		self.current_score = current_score
+		self.final_score = final_score
+		self.lis_score = lis_score
+
+class Player3:
+	def __init__(self):
+		self.name = name
+		self.current_score = current_score
+		self.final_score = final_score
+		self.lis_score = lis_score
+
+class Player4:
+	def __init__(self):
+		self.name = name
+		self.current_score = current_score
+		self.final_score = final_score
+		self.lis_score = lis_score
+
+
+class Score_App(App):
+	def build(self):
+
+		self.screen_manager = ScreenManager()
+		
+		self.menu_screen = Menu_Screen()
+		screen = Screen(name='menu')
+		screen.add_widget(self.menu_screen)
+		self.screen_manager.add_widget(screen)
+		
+		player_lis = [Player1,Player2,Player3, Player4]		
+								
+		return self.screen_manager
+
+
+if __name__=='__main__':
+	m_app =Score_App()
+	m_app.run()
+	
